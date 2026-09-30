@@ -1,0 +1,41 @@
+{
+  "mapping": {
+    "tagName": "$table",
+    "attributes": {
+      "class": "$table table-hover align-middle border mb-0"
+    },
+    "children": [
+      {
+        "collect": true,
+        "item": [
+          {
+            "tagName": "$thead",
+            "attributes": {
+              "class": "$table-dark"
+            },
+            "children": [
+              {
+                "objectify": "",
+                "item": {
+                  "tagName": "$tr",
+                  "children": [
+                    {
+                      "list": "columns",
+                      "item": {
+                        "tagName": "$th",
+                        "textContent": "title",
+                        "attributes": {
+                          "class": "$text-start"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

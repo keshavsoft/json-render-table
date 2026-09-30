@@ -1,0 +1,17 @@
+{
+  "name": "json-render-table",
+  "version": "1.3.1",
+  "description": "Standalone, lightweight JSON table renderers",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@keshavsoft/json-to-tag": "^1.4.2",
+    "json-traversal": "^1.19.1"
+  }
+}

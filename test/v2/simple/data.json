@@ -1,0 +1,7 @@
+[
+  { "itemName": "0.09/30mm", "baseUnit": "kgs", "rate": 1200 },
+  { "itemName": "0.11-25", "baseUnit": "kgs", "rate": 950 },
+  { "itemName": "0.11-30", "baseUnit": "kgs", "rate": 1050 },
+  { "itemName": "0.12/40mm", "baseUnit": "kgs", "rate": 1100 },
+  { "itemName": "1.00/50mm", "baseUnit": "mtr", "rate": 450 }
+]

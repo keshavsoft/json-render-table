@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Table Demo</title>
+  <script>
+    if (!location.pathname.endsWith('/') && !location.pathname.endsWith('.html')) {
+      location.replace(location.pathname + '/' + location.search + location.hash);
+    }
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+  <main class="container py-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 style="font-size: 1.5rem; margin: 0;">Simple Table Flavor</h1>
+      <span class="badge bg-primary">json-render-table v3</span>
+    </div>
+
+    <div class="mb-3 btn-group" role="group">
+      <a href="./" class="btn btn-primary btn-sm active">Simple Table</a>
+      <a href="../headerOnly/" class="btn btn-outline-primary btn-sm">Header Only</a>
+      <a href="../withBodyAndFooter/" class="btn btn-outline-primary btn-sm">With Body & Footer</a>
+    </div>
+
+    <div id="dom-render-container">
+      <div class="text-center py-5 text-muted">Loading table demo...</div>
+    </div>
+  </main>
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>

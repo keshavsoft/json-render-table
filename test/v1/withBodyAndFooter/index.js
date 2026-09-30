@@ -1,4 +1,4 @@
-import render from "../../src/index.js";
+import render from "../../../src/index.js";
 import data from "../simple/data.json" with { type: "json" };
 
 const start = () => {

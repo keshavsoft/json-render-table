@@ -1,6 +1,6 @@
 {
   "name": "json-render-table",
-  "version": "1.5.1",
+  "version": "1.6.1",
   "description": "Standalone, lightweight JSON table renderers",
   "type": "module",
   "main": "src/index.js",

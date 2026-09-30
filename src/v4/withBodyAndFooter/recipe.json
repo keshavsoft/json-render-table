@@ -1,0 +1,84 @@
+{
+  "mapping": {
+    "tagName": "$table",
+    "attributes": {
+      "class": "$table table-hover table-striped align-middle border mb-0"
+    },
+    "children": [
+      {
+        "collect": true,
+        "item": [
+          {
+            "tagName": "$thead",
+            "attributes": {
+              "class": "$table-dark"
+            },
+            "children": [
+              {
+                "objectify": "",
+                "item": {
+                  "tagName": "$tr",
+                  "children": [
+                    {
+                      "list": "columns",
+                      "item": {
+                        "tagName": "$th",
+                        "textContent": "title",
+                        "attributes": {
+                          "class": "$text-start"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "tagName": "$tbody",
+            "children": [
+              {
+                "list": "rows",
+                "item": {
+                  "tagName": "$tr",
+                  "children": [
+                    {
+                      "list": "cells",
+                      "item": {
+                        "tagName": "$td",
+                        "textContent": "value"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "tagName": "$tfoot",
+            "attributes": {
+              "class": "$table-light fw-bold"
+            },
+            "children": [
+              {
+                "list": "footerRows",
+                "item": {
+                  "tagName": "$tr",
+                  "children": [
+                    {
+                      "list": "cells",
+                      "item": {
+                        "tagName": "$td",
+                        "textContent": "value"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

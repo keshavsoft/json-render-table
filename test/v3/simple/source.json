@@ -1,0 +1,63 @@
+{
+    "columns": [
+        {
+            "title": "itemName"
+        },
+        {
+            "title": "baseUnit"
+        }
+    ],
+    "rows": [
+        {
+            "cells": [
+                {
+                    "value": "0.09/30mm"
+                },
+                {
+                    "value": "kgs"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "value": "0.11-25"
+                },
+                {
+                    "value": "kgs"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "value": "0.11-30"
+                },
+                {
+                    "value": "kgs"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "value": "0.12/40mm"
+                },
+                {
+                    "value": "kgs"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "value": "1.00/50mm"
+                },
+                {
+                    "value": "mtr"
+                }
+            ]
+        }
+    ],
+    "footerRows": []
+}

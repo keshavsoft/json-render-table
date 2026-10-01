@@ -100,43 +100,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "tagName": "tfoot",
-            "attributes": {
-                "class": "table-light fw-bold"
-            },
-            "children": [
-                {
-                    "tagName": "tr",
-                    "children": [
-                        {
-                            "tagName": "td",
-                            "textContent": "Total: 5 records"
-                        },
-                        {
-                            "tagName": "td",
-                            "textContent": ""
-                        }
-                    ]
-                },
-                {
-                    "tagName": "tr",
-                    "children": [
-                        {
-                            "tagName": "input",
-                            "attributes": {
-                                "class": "k1"
-                            },
-                            "value": "Total: 5 records"
-                        },
-                        {
-                            "tagName": "td",
-                            "textContent": ""
-                        }
-                    ]
-                }
-            ]
         }
     ]
 }

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>json-render-table Demo & Documentation</title>
+  <meta name="description" content="Interactive demo and showcase for json-render-table - Standalone, lightweight declarative JSON table renderers">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --brand-primary: #0d6efd;
+      --brand-gradient: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+    .hero-banner {
+      background: var(--brand-gradient);
+      color: #ffffff;
+      padding: 3.5rem 1.5rem 3rem;
+      border-radius: 0 0 1.5rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
+    }
+
+    .card-modern {
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      background: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .card-modern-header {
+      background: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      padding: 1rem 1.25rem;
+    }
+
+    .pipeline-step {
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .pipeline-step:hover {
+      border-color: #0d6efd;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.08);
+    }
+
+    pre code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .flavor-tab-btn {
+      font-weight: 500;
+      border-radius: 0.5rem !important;
+      padding: 0.5rem 1.15rem;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .badge-pill-custom {
+      font-weight: 500;
+      padding: 0.35rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
+    }
+
+    #table-output-container table {
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hero Section -->
+  <header class="hero-banner text-center mb-5">
+    <div class="container" style="max-width: 860px;">
+      <div class="d-inline-flex gap-2 align-items-center mb-3">
+        <span class="badge-pill-custom">v1.8.1 (v8 core)</span>
+        <span class="badge-pill-custom">~5.7 kB gzipped</span>
+        <span class="badge-pill-custom">Bootstrap Ready</span>
+      </div>
+      <h1 class="display-5 fw-bold mb-3">json-render-table</h1>
+      <p class="lead text-white-50 mb-4">
+        Declarative, lightweight JSON table rendering for modern browsers. Powered by <code>json-traversal</code> recipe transformations and <code>@keshavsoft/json-to-tag</code> DOM synthesis.
+      </p>
+      <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a href="#interactive-demo" class="btn btn-light btn-lg px-4 fw-semibold shadow-sm">
+          Interactive Live Demo
+        </a>
+        <a href="https://github.com/keshavsoft/json-render-table" target="_blank" rel="noopener" class="btn btn-outline-light btn-lg px-4 fw-semibold">
+          GitHub Repository
+        </a>
+        <a href="https://www.npmjs.com/package/json-render-table" target="_blank" rel="noopener" class="btn btn-outline-light btn-lg px-3 fw-semibold">
+          npm Package
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-4" style="max-width: 1040px;">
+
+    <!-- Architecture & Story -->
+    <section class="mb-5">
+      <div class="card-modern p-4">
+        <h4 class="fw-bold mb-2">The Architecture Story</h4>
+        <p class="text-muted mb-4">
+          Instead of hard-coded string templates or bulky component runtimes, <strong>json-render-table</strong> decouples table generation into three pure declarative phases:
+        </p>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div class="pipeline-step h-100">
+              <span class="badge bg-primary mb-2">1. Raw Input</span>
+              <h6 class="fw-semibold mb-1">Data & Columns</h6>
+              <p class="small text-muted mb-0">JSON records array and optional custom columns</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="pipeline-step h-100">
+              <span class="badge bg-secondary mb-2">2. Recipes</span>
+              <h6 class="fw-semibold mb-1">Flavor Blueprint</h6>
+              <p class="small text-muted mb-0">Declarative transformation recipe (simple, headerOnly, withBodyAndFooter)</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="pipeline-step h-100">
+              <span class="badge bg-info text-dark mb-2">3. DOM Spec</span>
+              <h6 class="fw-semibold mb-1">json-traversal</h6>
+              <p class="small text-muted mb-0">Produces pure DOM tree specification JSON</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="pipeline-step h-100">
+              <span class="badge bg-success mb-2">4. Render</span>
+              <h6 class="fw-semibold mb-1">json-to-tag</h6>
+              <p class="small text-muted mb-0">Generates native HTML table nodes mounted directly into your container</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Showcase Section -->
+    <section id="interactive-demo" class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <div>
+          <h3 class="fw-bold mb-0">Interactive Demo</h3>
+          <p class="text-muted mb-0">Select a flavor to render live using <code>docs/dist/v8/min.js</code></p>
+        </div>
+        <div class="btn-group p-1 bg-white border rounded shadow-sm" role="tablist">
+          <button type="button" class="btn btn-sm btn-primary flavor-tab-btn" id="btn-flavor-simple">Simple Table</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary flavor-tab-btn" id="btn-flavor-footer">With Body & Footer</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary flavor-tab-btn" id="btn-flavor-header">Header Only</button>
+        </div>
+      </div>
+
+      <div class="card-modern mb-4">
+        <div class="card-modern-header d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Live Render</span>
+            <span class="small text-muted" id="render-target-indicator">Target: <code>#table-output-container</code></span>
+          </div>
+          <span class="small text-secondary" id="active-flavor-name">Flavor: simple</span>
+        </div>
+        <div class="p-3 bg-white">
+          <div id="table-output-container">
+            <div class="text-center py-4 text-muted">Rendering table...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Preview & Generated Spec -->
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card-modern h-100">
+            <div class="card-modern-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold small">JavaScript Invocation</span>
+              <span class="badge bg-light text-dark border">ESM / Browser</span>
+            </div>
+            <div class="p-3 bg-dark text-light h-100 rounded-bottom">
+              <pre class="m-0"><code class="text-light" id="code-snippet-preview">// Loading code...</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-modern h-100">
+            <div class="card-modern-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold small">Generated DOM Specification (Tree)</span>
+              <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">json-traversal output</span>
+            </div>
+            <div class="p-3 bg-light rounded-bottom">
+              <pre class="m-0" style="max-height: 280px; overflow-y: auto;"><code class="text-dark" id="spec-json-preview">// Generated domSpec will appear here</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation & Usage Guide -->
+    <section class="mb-5">
+      <div class="card-modern p-4">
+        <h4 class="fw-bold mb-3">Quick Installation & Usage</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <h6 class="fw-semibold">1. Install via npm</h6>
+            <div class="bg-dark p-3 rounded text-light mb-3">
+              <pre class="m-0"><code class="text-info">npm install json-render-table</code></pre>
+            </div>
+            <h6 class="fw-semibold">2. Import in bundlers (Vite / Webpack)</h6>
+            <div class="bg-dark p-3 rounded text-light">
+              <pre class="m-0"><code class="text-light"><span class="text-warning">import</span> render <span class="text-warning">from</span> <span class="text-success">"json-render-table"</span>;
+
+render({
+  flavor: <span class="text-success">"simple"</span>,
+  data: myRecords,
+  targetHtmlId: <span class="text-success">"table-container"</span>
+});</code></pre>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h6 class="fw-semibold">Direct Browser Script (CDN / dist)</h6>
+            <div class="bg-dark p-3 rounded text-light h-100">
+              <pre class="m-0"><code class="text-light">&lt;!-- Target DOM element --&gt;
+&lt;div id=<span class="text-success">"table-container"</span>&gt;&lt;/div&gt;
+
+&lt;!-- Load standalone build --&gt;
+&lt;script type=<span class="text-success">"module"</span> src=<span class="text-success">"./dist/v8/min.js"</span>&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  window.renderTable({
+    flavor: <span class="text-success">"withBodyAndFooter"</span>,
+    data: [
+      { id: 101, product: <span class="text-success">"Laptop"</span>, price: 999 },
+      { id: 102, product: <span class="text-success">"Mouse"</span>, price: 29 }
+    ],
+    targetHtmlId: <span class="text-success">"table-container"</span>
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-top py-4 text-center text-muted small">
+    <div class="container">
+      <p class="mb-1"><strong>json-render-table</strong> &bull; Released under the <a href="https://github.com/keshavsoft/json-render-table/blob/main/LICENSE" target="_blank" rel="noopener" class="text-decoration-none">MIT License</a>.</p>
+      <p class="mb-0">Created by <a href="https://github.com/keshavsoft" target="_blank" rel="noopener" class="text-decoration-none fw-semibold">KeshavSoft</a>.</p>
+    </div>
+  </footer>
+
+  <!-- Script logic importing production dist/v8/min.js -->
+  <script type="module">
+    import render, { prepareSpec } from "./dist/v8/min.js";
+
+    const sampleProducts = [
+      { id: 101, product: "Ultra HD Monitor 27\"", category: "Electronics", stock: 45, unitPrice: "$349.00" },
+      { id: 102, product: "Ergonomic Mechanical Keyboard", category: "Accessories", stock: 120, unitPrice: "$129.50" },
+      { id: 103, product: "Wireless Noise-Canceling Headphones", category: "Audio", stock: 85, unitPrice: "$199.99" },
+      { id: 104, product: "USB-C Multiport Dock", category: "Accessories", stock: 210, unitPrice: "$69.00" },
+      { id: 105, product: "Precision Laser Mouse", category: "Accessories", stock: 310, unitPrice: "$49.99" }
+    ];
+
+    const sampleFooter = [
+      { id: "Total", product: "5 Items Cataloged", category: "All", stock: 770, unitPrice: "Avg: $159.50" }
+    ];
+
+    const sampleColumns = ["id", "product", "category", "stock", "unitPrice"];
+
+    const configs = {
+      simple: {
+        flavor: "simple",
+        data: sampleProducts,
+        columns: sampleColumns,
+        targetHtmlId: "table-output-container",
+        code: `render({
+  flavor: "simple",
+  data: sampleProducts,
+  targetHtmlId: "table-output-container"
+});`
+      },
+      withBodyAndFooter: {
+        flavor: "withBodyAndFooter",
+        data: sampleProducts,
+        columns: sampleColumns,
+        footerData: sampleFooter,
+        targetHtmlId: "table-output-container",
+        code: `render({
+  flavor: "withBodyAndFooter",
+  data: sampleProducts,
+  footerData: [
+    { id: "Total", product: "5 Items Cataloged", category: "All", stock: 770, unitPrice: "Avg: $159.50" }
+  ],
+  targetHtmlId: "table-output-container"
+});`
+      },
+      headerOnly: {
+        flavor: "headerOnly",
+        columns: sampleColumns,
+        targetHtmlId: "table-output-container",
+        code: `render({
+  flavor: "headerOnly",
+  columns: ["id", "product", "category", "stock", "unitPrice"],
+  targetHtmlId: "table-output-container"
+});`
+      }
+    };
+
+    function switchFlavor(flavorKey) {
+      const config = configs[flavorKey];
+      if (!config) return;
+
+      // 1. Render the table
+      render({
+        flavor: config.flavor,
+        data: config.data || [],
+        columns: config.columns,
+        footerData: config.footerData,
+        targetHtmlId: config.targetHtmlId
+      });
+
+      // 2. Generate and display the raw DOM Spec JSON for visualization
+      const spec = prepareSpec({
+        flavor: config.flavor,
+        data: config.data || [],
+        columns: config.columns,
+        footerData: config.footerData
+      });
+      document.getElementById("spec-json-preview").textContent = JSON.stringify(spec, null, 2);
+
+      // 3. Update Code snippet
+      document.getElementById("code-snippet-preview").textContent = config.code;
+      document.getElementById("active-flavor-name").textContent = `Flavor: ${config.flavor}`;
+
+      // 4. Update tab button styles
+      const btnMap = {
+        simple: "btn-flavor-simple",
+        withBodyAndFooter: "btn-flavor-footer",
+        headerOnly: "btn-flavor-header"
+      };
+
+      Object.entries(btnMap).forEach(([key, id]) => {
+        const btn = document.getElementById(id);
+        if (key === flavorKey) {
+          btn.className = "btn btn-sm btn-primary flavor-tab-btn active";
+        } else {
+          btn.className = "btn btn-sm btn-outline-secondary flavor-tab-btn";
+        }
+      });
+    }
+
+    document.getElementById("btn-flavor-simple").addEventListener("click", () => switchFlavor("simple"));
+    document.getElementById("btn-flavor-footer").addEventListener("click", () => switchFlavor("withBodyAndFooter"));
+    document.getElementById("btn-flavor-header").addEventListener("click", () => switchFlavor("headerOnly"));
+
+    // Initial render
+    switchFlavor("simple");
+  </script>
+</body>
+
+</html>
